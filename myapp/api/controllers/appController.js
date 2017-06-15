@@ -1,9 +1,10 @@
 'use strict';
 
-
 var mongoose = require('mongoose'),
 Product = mongoose.model('Products');
 
+
+// list all products
 exports.list_all_products = function(req, res) {
   Product.find({}, function(err, product) {
     if (err)
@@ -12,9 +13,7 @@ exports.list_all_products = function(req, res) {
   });
 };
 
-
-
-
+// create a product
 exports.create_a_product = function(req, res) {
   var new_product = new Product(req.body);
   new_product.save(function(err, product) {
@@ -24,7 +23,7 @@ exports.create_a_product = function(req, res) {
   });
 };
 
-
+// read a product
 exports.read_a_product = function(req, res) {
   Product.findById(req.params.productId, function(err, product) {
     if (err)
@@ -33,7 +32,7 @@ exports.read_a_product = function(req, res) {
   });
 };
 
-
+// update a product
 exports.update_a_product = function(req, res) {
   Product.findOneAndUpdate(req.params.productId, req.body, {new: true}, function(err, product) {
     if (err)
@@ -42,7 +41,7 @@ exports.update_a_product = function(req, res) {
   });
 };
 
-
+// delete a product
 exports.delete_a_product = function(req, res) {
   Product.remove({
     _id: req.params.productId

@@ -1,4 +1,5 @@
 'use strict';
+
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -6,11 +7,15 @@ var Schema = mongoose.Schema;
 var ProductSchema = new Schema({
   name: {
     type: String,
-    Required: 'Enter the name of the product'
+    required: true
+  },
+  Created_date: {
+    type: Date,
+    default: Date.now
   },
   description: {
     type: String
   }
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('Products', ProductSchema);
