@@ -1,3 +1,7 @@
+/*
+ * Mongodb Models
+ * @author Thais Watanabe
+ */
 'use strict';
 
 var mongoose = require('mongoose');

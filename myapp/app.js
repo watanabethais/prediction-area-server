@@ -1,5 +1,5 @@
 /*
- * Server to communicate with ESP-WROOM-02
+ * NodeJS Server
  * @author Thais Watanabe
  */
 
@@ -10,10 +10,10 @@ var app = express();
 var bodyParser = require('body-parser');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+global.io = io;
 var path = require('path');
 var mongoose = require('mongoose');
 var Product = require('./api/models/appModel');
-var bodyParser = require('body-parser');
 
 server.listen(3000, '192.168.11.8', function() {
 	var host = server.address().address
@@ -37,24 +37,3 @@ mongoose.connect('mongodb://localhost/myappdb');
 
 var routes = require('./api/routes/appRoutes');
 routes(app);
-
-
-// //////////////////////////
-// has someone at the sensor?
-var personData;
-
-app.post('/person', function(req, res) {
-	personData = req.body
-	//console.log("Received: " + personData.hasSomeone);
-	io.emit('personEvent', personData);	
-});
-
-// ////////////////
-// selected product
-var productData = "product1";
-
-app.get('/whichProduct', function(req, res) {
-	console.log("Selected product: " + productData);
-	res.end(productData);
-	io.emit('productEvent', productData);	
-});

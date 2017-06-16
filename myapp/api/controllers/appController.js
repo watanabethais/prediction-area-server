@@ -1,8 +1,25 @@
+/*
+ * NodeJS Controller
+ * @author Thais Watanabe
+ */
 'use strict';
 
 var mongoose = require('mongoose'),
 Product = mongoose.model('Products');
 
+// //////////////
+// Sensor Events
+
+// discover if there is someone at the sensor
+exports.there_is_someone = function(req, res) {
+  var personData = req.body;
+  //console.log("Received: " + personData.hasSomeone);
+  // emitting socket io event
+  global.io.emit('personEvent', personData); 
+};
+
+// //////////////
+// MongoDB CRUD
 
 // list all products
 exports.list_all_products = function(req, res) {
@@ -29,6 +46,8 @@ exports.read_a_product = function(req, res) {
     if (err)
       res.send(err);
     res.json(product);
+    // emitting socket io event
+    global.io.emit('productEvent', product); 
   });
 };
 
