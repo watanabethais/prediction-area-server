@@ -1,25 +1,29 @@
 /*
- * Mongodb Models
+ * [kiwi] Mongodb Models
  * @author Thais Watanabe
  */
-'use strict';
+ 'use strict';
 
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+ var mongoose = require('mongoose');
+ var Schema = mongoose.Schema;
 
 
-var ProductSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  Created_date: {
-    type: Date,
-    default: Date.now
-  },
-  description: {
-    type: String
-  }
-});
+ var ProductSchema = new Schema({
+ 	name: {
+ 		type: String,
+ 		required: true
+ 	},
+ 	Created_date: {
+ 		type: Date,
+ 		default: Date.now
+ 	},
+ 	description: {
+ 		type: String
+ 	},
+ 	photoName: {
+ 		type: String
+ 	}
 
-module.exports = mongoose.model('Products', ProductSchema);
+ });
+
+ module.exports = mongoose.model('Products', ProductSchema);

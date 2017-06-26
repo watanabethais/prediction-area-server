@@ -1,11 +1,13 @@
 /*
- * NodeJS Controller
+ * [kiwi] NodeJS Controller
  * @author Thais Watanabe
  */
-'use strict';
+ 'use strict';
 
-var mongoose = require('mongoose'),
-Product = mongoose.model('Products');
+ var mongoose = require('mongoose'),
+ Product = mongoose.model('Products');
+
+ var selectedProduct;
 
 // //////////////
 // Sensor Events
@@ -16,6 +18,13 @@ exports.there_is_someone = function(req, res) {
   //console.log("Received: " + personData.hasSomeone);
   // emitting socket io event
   global.io.emit('personEvent', personData); 
+};
+
+// discover which product is selected
+exports.which_product = function(req, res) {
+  if(selectedProduct != null) {
+    res.end(selectedProduct._id.toString());
+  }
 };
 
 // //////////////
@@ -43,11 +52,12 @@ exports.create_a_product = function(req, res) {
 // read a product
 exports.read_a_product = function(req, res) {
   Product.findById(req.params.productId, function(err, product) {
+    // saving in session which product is selected
+    selectedProduct = product;
     if (err)
       res.send(err);
     res.json(product);
-    // emitting socket io event
-    global.io.emit('productEvent', product); 
+    global.io.emit('productEvent', selectedProduct); 
   });
 };
 

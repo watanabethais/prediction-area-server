@@ -1,24 +1,28 @@
 /*
- * NodeJS Routes
+ * [kiwi] NodeJS Routes
  * @author Thais Watanabe
  */
-'use strict';
+ 'use strict';
 
-module.exports = function(app, io) {
-  var productList = require('../controllers/appController');
+ module.exports = function(app, io) {
+ 	var productList = require('../controllers/appController');
+
 
   // sensor Routes
   app.route('/person')
-  	.post(productList.there_is_someone);
+  .post(productList.there_is_someone);
+
+  app.route('/whichProduct')
+  .get(productList.which_product);
 
   // productList Routes
   app.route('/products')
-    .get(productList.list_all_products)
-    .post(productList.create_a_product);
+  .get(productList.list_all_products)
+  .post(productList.create_a_product);
 
   app.route('/products/:productId')
-    .get(productList.read_a_product)
-    .put(productList.update_a_product)
-    .delete(productList.delete_a_product);
+  .get(productList.read_a_product)
+  .put(productList.update_a_product)
+  .delete(productList.delete_a_product);
 
 };
