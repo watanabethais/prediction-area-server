@@ -1,13 +1,13 @@
 /*
- * [kiwi] NodeJS Controller
+ * [records] NodeJS Controller
  * @author Thais Watanabe
  */
  'use strict';
 
  var mongoose = require('mongoose'),
- Product = mongoose.model('Products');
+ Record = mongoose.model('Records');
 
- var selectedProduct;
+ var selectedRecord;
 
 // //////////////
 // Sensor Events
@@ -20,63 +20,63 @@ exports.there_is_someone = function(req, res) {
   global.io.emit('personEvent', personData); 
 };
 
-// discover which product is selected
-exports.which_product = function(req, res) {
-  if(selectedProduct != null) {
-    res.end(selectedProduct._id.toString());
+// discover which record is selected
+exports.which_record = function(req, res) {
+  if(selectedRecord != null) {
+    res.end(selectedRecord._id.toString());
   }
 };
 
 // //////////////
 // MongoDB CRUD
 
-// list all products
-exports.list_all_products = function(req, res) {
-  Product.find({}, function(err, product) {
+// list all records
+exports.list_all_records = function(req, res) {
+  Record.find({}, function(err, record) {
     if (err)
       res.send(err);
-    res.json(product);
+    res.json(record);
   });
 };
 
-// create a product
-exports.create_a_product = function(req, res) {
-  var new_product = new Product(req.body);
-  new_product.save(function(err, product) {
+// create a record
+exports.create_a_record = function(req, res) {
+  var new_record = new Record(req.body);
+  new_record.save(function(err, record) {
     if (err)
       res.send(err);
-    res.json(product);
+    res.json(record);
   });
 };
 
-// read a product
-exports.read_a_product = function(req, res) {
-  Product.findById(req.params.productId, function(err, product) {
-    // saving in session which product is selected
-    selectedProduct = product;
+// read a record
+exports.read_a_record = function(req, res) {
+  Record.findById(req.params.recordId, function(err, record) {
+    // saving in session which record is selected
+    selectedRecord = record;
     if (err)
       res.send(err);
-    res.json(product);
-    global.io.emit('productEvent', selectedProduct); 
+    res.json(record);
+    global.io.emit('recordEvent', selectedRecord); 
   });
 };
 
-// update a product
-exports.update_a_product = function(req, res) {
-  Product.findOneAndUpdate(req.params.productId, req.body, {new: true}, function(err, product) {
+// update a record
+exports.update_a_record = function(req, res) {
+  Record.findOneAndUpdate(req.params.recordId, req.body, {new: true}, function(err, record) {
     if (err)
       res.send(err);
-    res.json(product);
+    res.json(record);
   });
 };
 
-// delete a product
-exports.delete_a_product = function(req, res) {
-  Product.remove({
-    _id: req.params.productId
-  }, function(err, product) {
+// delete a record
+exports.delete_a_record = function(req, res) {
+  Record.remove({
+    _id: req.params.recordId
+  }, function(err, record) {
     if (err)
       res.send(err);
-    res.json({ message: 'Product successfully deleted' });
+    res.json({ message: 'Record successfully deleted' });
   });
 };

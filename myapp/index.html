@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Kiwi</title>
+  <title>Records</title>
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
@@ -12,7 +12,7 @@
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Kiwi</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Records</a>
     </div>
   </nav>
 
@@ -27,7 +27,7 @@
       <div id="divDirections" class="center-align">
       </div>
 
-      <div id="divProduct">
+      <div id="divRecord">
       </div>
 
     </div>
@@ -50,7 +50,7 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
   	var socket = io.connect();
-  	var product;
+  	var record;
 
   	// if has someone
   	socket.on('personEvent', function(personData) {
@@ -58,7 +58,7 @@
 
   		if (hasSomeone == true) {
   			$("#divSensor").html("");
-        $("#divDirections").html("<h4>Directions</h4> <h6>Please aim to the desired product you wish to know more.</h6>");
+        $("#divDirections").html("<h4>Directions</h4> <h6>Please aim to the desired record you wish to know more.</h6>");
   		}
   		else {
   			$("#divSensor").html("<h4>Welcome</h4> <h6>Go to the indicated position to get started!</h6>");
@@ -67,13 +67,13 @@
 
   	});
 
-  	// discover which product the person is aiming
-  	socket.on('productEvent', function(productData) {
+  	// discover which record the person is aiming
+  	socket.on('recordEvent', function(recordData) {
 
-      if (productData != null) {
-        $("#divProduct").html(" <div class='row'> <div class='col s12 m7'> <div class='card'> <div class='card-image'> <img src='images/" + productData.photoName + "'> <span class='card-title'>"+ productData.name + "</span> </div> <div class='card-content'> <p>" + productData.description + "</p> </div> <div class='card-action'> <a href='#'>BUY</a> </div> </div> </div> </div>");
+      if (recordData != null) {
+        $("#divRecord").html(" <div class='row'> <div class='col s12 m7'> <div class='card'> <div class='card-image'> <img src='images/" + recordData.photoName + "'> <span class='card-title'>"+ recordData.name + ", " + recordData.artist +"</span> </div> <div class='card-content'> <p>" + recordData.description + "</p> </div> <div class='card-action'> <a href='#'>BUY</a> </div> </div> </div> </div>");
       } else {
-        $("#divProduct").html("");
+        $("#divRecord").html("");
       }
 
   		

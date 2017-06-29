@@ -1,5 +1,5 @@
 /*
- * [kiwi] NodeJS Server
+ * [records] NodeJS Server
  * @author Thais Watanabe
  */
 
@@ -20,7 +20,7 @@ var mongoose = require('mongoose');
 var Product = require('./api/models/appModel');
 
 // server settings
-server.listen(3000, '192.168.11.8', function() {
+server.listen(3000, '192.168.11.5', function() {
 	var host = server.address().address
 	var port = server.address().port
 	console.log("Server listening on %s:%s...", host, port);
@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 // /////////////////
 // mongodb settings
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/kiwidb'); 
+mongoose.connect('mongodb://localhost/recorddb'); 
 
 var routes = require('./api/routes/appRoutes');
 routes(app);

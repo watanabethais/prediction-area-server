@@ -1,5 +1,5 @@
 /*
- * [kiwi] Mongodb Models
+ * [records] Mongodb Models
  * @author Thais Watanabe
  */
  'use strict';
@@ -8,22 +8,26 @@
  var Schema = mongoose.Schema;
 
 
- var ProductSchema = new Schema({
+ var RecordSchema = new Schema({
  	name: {
  		type: String,
  		required: true
  	},
- 	Created_date: {
- 		type: Date,
- 		default: Date.now
+ 	artist: {
+ 		type: String,
+ 		required: true
  	},
  	description: {
  		type: String
  	},
  	photoName: {
  		type: String
+ 	},
+ 	Created_date: {
+ 		type: Date,
+ 		default: Date.now
  	}
 
  });
 
- module.exports = mongoose.model('Products', ProductSchema);
+ module.exports = mongoose.model('Records', RecordSchema);

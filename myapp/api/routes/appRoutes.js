@@ -1,28 +1,27 @@
 /*
- * [kiwi] NodeJS Routes
+ * [records] NodeJS Routes
  * @author Thais Watanabe
  */
  'use strict';
 
  module.exports = function(app, io) {
- 	var productList = require('../controllers/appController');
-
+ 	var recordController = require('../controllers/appController');
 
   // sensor Routes
   app.route('/person')
-  .post(productList.there_is_someone);
+  .post(recordController.there_is_someone);
 
-  app.route('/whichProduct')
-  .get(productList.which_product);
+  app.route('/whichRecord')
+  .get(recordController.which_record);
 
   // productList Routes
-  app.route('/products')
-  .get(productList.list_all_products)
-  .post(productList.create_a_product);
+  app.route('/records')
+  .get(recordController.list_all_records)
+  .post(recordController.create_a_record);
 
-  app.route('/products/:productId')
-  .get(productList.read_a_product)
-  .put(productList.update_a_product)
-  .delete(productList.delete_a_product);
+  app.route('/records/:recordId')
+  .get(recordController.read_a_record)
+  .put(recordController.update_a_record)
+  .delete(recordController.delete_a_record);
 
 };
