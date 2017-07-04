@@ -1,91 +1,122 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <meta name="theme-color" content="#2196F3">
   <title>Records</title>
 
   <!-- CSS  -->
+  <link href="min/plugin-min.css" type="text/css" rel="stylesheet">
+  <link href="min/custom-min.css" type="text/css" rel="stylesheet" >
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
-<body>
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Records</a>
-    </div>
-  </nav>
+<body id="top" class="scrollspy">
 
-  <div class="container">
-    <div class="section">
+  <!-- Pre Loader -->
+  <div id="loader-wrapper">
+    <div id="loader"></div>
 
-      <div id="divSensor" class="center-align">
-        <h4>Welcome</h4>
-        <h6>Go to the indicated position to get started!</h6>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="navbar-fixed">
+    <nav id="nav_f" class="default_color" role="navigation">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="#" id="logo-container" class="brand-logo">Records</a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ul id="nav-mobile" class="side-nav">
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+        </div>
       </div>
+    </nav>
+  </div>
 
-      <div id="divDirections" class="center-align">
-      </div>
-
-      <div id="divRecord">
-      </div>
-
-    </div>
-    <br><br>
-
-    <div class="section">
+  <!-- Banner -->
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h1 class="text_h center header cd-headline letters type">
+        <span>I Love</span> 
+        <span class="cd-words-wrapper waiting">
+          <b class="is-visible">MUSIC</b>
+          <b>RECORDS</b>
+        </span>
+      </h1>
     </div>
   </div>
 
-  <footer class="page-footer orange">
-    <div class="footer-copyright">
+  <!-- Introduction -->
+  <div id="intro" class="section scrollspy">
+    <div class="container">
+      <div class="row">
+        <div id="divSensor" class="col s12">
+          <h2 class="center header text_h2"><span class="span_h2">Welcome!</span> Go to the indicated position to get started!</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Record -->
+  <div id="record">
+    
+  </div>
+  
+  <!-- Footer -->
+  <footer id="contact" class="page-footer default_color scrollspy">
+    <div class="footer-copyright default_color">
       <div class="container">
-        Developed by Thais W.
+        Developed by <a class="white-text" href="http://watanabethais.github.io">Thais W</a>. Made by <a class="white-text" href="http://joashpereira.com">Joash Pereira</a>.Thanks to <a class="white-text" href="http://materializecss.com/">materializecss</a>.
       </div>
     </div>
   </footer>
 
 
-  <!-- Scripts -->
+  <!--  Scripts -->
   <script src="/socket.io/socket.io.js"></script>
   <script>
-  	var socket = io.connect();
-  	var record;
+    var socket = io.connect();
+    var record;
 
-  	// if has someone
-  	socket.on('personEvent', function(personData) {
-  		hasSomeone = personData.hasSomeone
+    // if has someone
+    socket.on('personEvent', function(personData) {
+      hasSomeone = personData.hasSomeone
 
-  		if (hasSomeone == true) {
-  			$("#divSensor").html("");
-        $("#divDirections").html("<h4>Directions</h4> <h6>Please aim to the desired record you wish to know more.</h6>");
-  		}
-  		else {
-  			$("#divSensor").html("<h4>Welcome</h4> <h6>Go to the indicated position to get started!</h6>");
-        $("#divDirections").html("");
-  		}
-
-  	});
-
-  	// discover which record the person is aiming
-  	socket.on('recordEvent', function(recordData) {
-
-      if (recordData != null) {
-        $("#divRecord").html(" <div class='row'> <div class='col s12 m7'> <div class='card'> <div class='card-image'> <img src='images/" + recordData.photoName + "'> <span class='card-title'>"+ recordData.name + ", " + recordData.artist +"</span> </div> <div class='card-content'> <p>" + recordData.description + "</p> </div> <div class='card-action'> <a href='#'>BUY</a> </div> </div> </div> </div>");
-      } else {
-        $("#divRecord").html("");
+      if (hasSomeone == true) {
+        $("#divSensor").html("<h2 class='center header text_h2'><span class='span_h2'>Directions</span> Please aim to the desired record you wish to know more.");
+      }
+      else {
+        $("#divSensor").html("<h2 class='center header text_h2'><span class='span_h2'>Welcome!</span> Go to the indicated position to get started!</h2>");
       }
 
-  		
-  	});
+    });
+
+    // discover which record the person is aiming
+    socket.on('recordEvent', function(recordData) {
+
+      if (recordData != null) {
+        $("#record").html("<div class='section scrollspy' id='work'><div class='container'> <h2 class='header text_b'>Selected Record</h2> <div class='row'> <div class='col s12 m4 l4'> <div class='card'> <div class='card-image waves-effect waves-block waves-light'> <img class='activator' src='images/"+ recordData.photoName +"'> </div> <div class='card-content'> <span class='card-title activator grey-text text-darken-4'>"+ recordData.name + "<i class='mdi-navigation-more-vert right'></i></span> <p><a href='#'>" + recordData.artist + "</a></p> </div> <div class='card-reveal'> <span class='card-title grey-text text-darken-4'>"+ recordData.name + ', ' + recordData.artist + "<i class='mdi-navigation-close right'></i></span> <p>"+ recordData.description +"</p> </div> </div> </div> </div> </div> </div>");
+      } else {
+        $("#record").html("");
+      }
+
+
+    });
 
   </script>
 
-
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-            
+  <script src="min/plugin-min.js"></script>
+  <script src="min/custom-min.js"></script>
 
 </body>
 </html>
