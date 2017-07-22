@@ -24,6 +24,8 @@ exports.there_is_someone = function(req, res) {
 exports.which_record = function(req, res) {
   if(selectedRecord != null) {
     res.end(selectedRecord._id.toString());
+  } else {
+    res.end('null');
   }
 };
 
@@ -57,8 +59,31 @@ exports.read_a_record = function(req, res) {
     if (err)
       res.send(err);
     res.json(record);
+  });
+};
+
+// logic for the selected record
+exports.select_the_record = function(req, res) {
+  if (req.params.recordId == 'none') {
+    selectedRecord = null;
+    res.end('OK!');
+    global.io.emit('recordEvent', selectedRecord); 
+  } else {
+    Record.findById(req.params.recordId, function(err, record) {
+    // saving in session which record is selected
+    selectedRecord = record;
+    if (err)
+      res.send(err);
+    res.end('OK!');
     global.io.emit('recordEvent', selectedRecord); 
   });
+  }
+};
+
+// clear the selected record
+exports.clear_selected_record = function(req, res) {
+  selectedRecord = null;
+  res.end('OK!');
 };
 
 // update a record
