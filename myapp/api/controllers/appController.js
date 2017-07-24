@@ -80,6 +80,40 @@ exports.select_the_record = function(req, res) {
   }
 };
 
+exports.select_the_record_post = function(req, res) {
+  if (req.params.recordId == 'none') {
+    selectedRecord = null;
+    res.end('OK!');
+    global.io.emit('recordEvent', selectedRecord); 
+  } else {
+    Record.findById(req.params.recordId, function(err, record) {
+    // saving in session which record is selected
+    selectedRecord = record;
+    if (err)
+      res.send(err);
+    res.end('OK!');
+    global.io.emit('recordEvent', selectedRecord); 
+  });
+  }
+};
+
+exports.select_the_record_p = function(req, res) {
+  if (req.body.id == 'none') {
+    selectedRecord = null;
+    res.end('OK!');
+    global.io.emit('recordEvent', selectedRecord); 
+  } else {
+    Record.findById(req.body.id, function(err, record) {
+    // saving in session which record is selected
+    selectedRecord = record;
+    if (err)
+      res.send(err);
+    res.end('OK!');
+    global.io.emit('recordEvent', selectedRecord); 
+  });
+  }
+};
+
 // clear the selected record
 exports.clear_selected_record = function(req, res) {
   selectedRecord = null;

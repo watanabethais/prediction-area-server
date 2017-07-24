@@ -25,9 +25,11 @@
   .delete(recordController.delete_a_record);
 
   app.route('/records/')
-  .get(recordController.clear_selected_record);
+  .get(recordController.clear_selected_record)
+  .post(recordController.select_the_record_p);
 
   app.route('/records/:recordId')
-  .get(recordController.select_the_record);
-
+  .get(recordController.select_the_record)
+  .post(recordController.select_the_record_post);
+  
 };
