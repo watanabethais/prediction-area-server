@@ -29,13 +29,7 @@
     <nav id="nav_f" class="default_color" role="navigation">
       <div class="container">
         <div class="nav-wrapper">
-          <a href="#" id="logo-container" class="brand-logo">Records</a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-          <ul id="nav-mobile" class="side-nav">
-            <li><a href="#contact">Contact</a></li>
-          </ul>
+          <a href="#" id="logo-container" class="brand-logo center-align">Popular Music Collection</a>
           <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         </div>
       </div>
@@ -43,9 +37,10 @@
   </div>
 
   <!-- Selected Record -->
-  <div id="record">
+  <div id="record" class="">
 
   </div>
+  
 
   <!-- Footer -->
   <footer id="contact" class="page-footer default_color scrollspy">
@@ -80,7 +75,10 @@
     socket.on('recordEvent', function(recordData) {
 
       if (recordData != null) {
-        $("#record").html("<div class='section scrollspy' id='work'><div class='container'> <h2 class='header text_b'>Selected Record</h2> <div class='row'> <div class='col s12 m4 l4'> <div class='card'> <div class='card-image waves-effect waves-block waves-light'> <img class='activator' src='images/"+ recordData.photoName +"'> </div> <div class='card-content'> <span class='card-title activator grey-text text-darken-4'>"+ recordData.name + "<i class='mdi-navigation-more-vert right'></i></span> <p><a href='#'>" + recordData.artist + "</a></p> </div> <div class='card-reveal'> <span class='card-title grey-text text-darken-4'>"+ recordData.name + ', ' + recordData.artist + "<i class='mdi-navigation-close right'></i></span> <p>"+ recordData.description +"</p> </div> </div> </div> </div> </div> </div>");
+        $("#record").html("<div class='section scrollspy' id='work'> <div class='container'> <div class='row'> <div class='col s6 m4 l4'> <div class='card'> <div class='card-image waves-effect waves-block waves-light'> <img class='activator' src='images/"+ recordData.photoName +"'> </div> <div class='card-content'> <span class='card-title activator grey-text text-darken-4'>"+ recordData.name + "<i class='mdi-navigation-more-vert right'></i></span> <p><a href='#'>" + recordData.artist + "</a></p> </div> <div class='card-reveal'> <span class='card-title grey-text text-darken-4'>"+ recordData.name + ', ' + recordData.artist + "<i class='mdi-navigation-close right'></i></span> <p>"+ recordData.description +"</p> </div> </div> </div>  <div class='col s6'> <div class='col s12'><div class='card-panel teal'> <span class='white-text'>"+recordData.description+"</span> </div> </div> </div> </div> </div> </div>");
+
+          //cutDescription = recordData.description.substring(0, recordData.description.indexOf('。'));
+          //responsiveVoice.speak(cutDescription,"Japanese Female");
       } else {
         $("#record").html("");
       }
@@ -92,6 +90,7 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="min/plugin-min.js"></script>
   <script src="min/custom-min.js"></script>
+  <!--<script src='https://code.responsivevoice.org/responsivevoice.js'></script>-->
 
 </body>
 </html>
